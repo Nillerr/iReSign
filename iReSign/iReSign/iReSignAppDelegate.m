@@ -895,7 +895,7 @@ static NSInteger kCertUUID6Prefix = 47;
 - (void)watchGetCerts:(NSFileHandle*)streamHandle {
     @autoreleasepool {
         
-        NSString *securityResult = [[NSString alloc] initWithData:[streamHandle readDataToEndOfFile] encoding:NSASCIIStringEncoding];
+        NSString *securityResult = [[NSString alloc] initWithData:[streamHandle readDataToEndOfFile] encoding:NSUTF8StringEncoding];
         // Verify the security result
         if (securityResult == nil || securityResult.length < 1) {
             // Nothing in the result, return
