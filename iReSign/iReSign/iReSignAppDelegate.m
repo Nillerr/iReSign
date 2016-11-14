@@ -610,11 +610,13 @@ static NSInteger kCertUUID6Prefix = 47;
          To ensure it is ignored, remove the resource key from the Info.plist file.
          */
         
-        NSString *infoPath = [NSString stringWithFormat:@"%@/%@", filePath, kInfoPlistFilename];
-        NSMutableDictionary *infoDict = [NSMutableDictionary dictionaryWithContentsOfFile:infoPath];
-        [infoDict removeObjectForKey:@"CFBundleResourceSpecification"];
-        [infoDict writeToFile:infoPath atomically:YES];
-        [arguments addObject:@"--no-strict"]; // http://stackoverflow.com/a/26204757
+        NSString *infoPath = [NSString stringWithFormat:@"%@/Info.plist", filePath];
+        if ([[NSFileManager defaultManager]fileExistsAtPath:infoPath]) {
+            NSMutableDictionary *infoDict = [NSMutableDictionary dictionaryWithContentsOfFile:infoPath];
+            [infoDict removeObjectForKey:@"CFBundleResourceSpecification"];
+            [infoDict writeToFile:infoPath atomically:YES];
+            [arguments addObject:@"--no-strict"]; // http://stackoverflow.com/a/26204757
+        }
     }
     
     if (![entitlementsFilePath isEqualToString:@""]) {
