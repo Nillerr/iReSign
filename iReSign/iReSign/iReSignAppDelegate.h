@@ -19,6 +19,7 @@
     NSTask *unzipTask;
     NSTask *copyTask;
     NSTask *provisioningTask;
+    NSTask *grabCertPubKeyTask;
     NSTask *codesignTask;
     NSTask *generateEntitlementsTask;
     NSTask *verifyTask;
@@ -30,13 +31,16 @@
     NSString *workingPath;
     NSString *appName;
     NSString *fileName;
+    NSString *certPubKey;
+    NSString *entitlementsDirPath;
+    NSString *entitlementsFilePath;
     
     NSString *entitlementsResult;
     NSString *codesigningResult;
     NSString *verificationResult;
     
-    NSMutableArray *frameworks;
-    Boolean hasFrameworks;
+    NSMutableArray *additionalResourcesToSign;
+    Boolean additionalToSign;
     
     IBOutlet IRTextFieldDrag *pathField;
     IBOutlet IRTextFieldDrag *provisioningPathField;
@@ -58,8 +62,6 @@
 }
 
 @property (unsafe_unretained) IBOutlet NSWindow *window;
-
-@property (nonatomic, strong) NSString *workingPath;
 
 - (IBAction)resign:(id)sender;
 - (IBAction)browse:(id)sender;
